@@ -25,6 +25,7 @@
     "import/prefer-default-export": "off",
     "react/jsx-one-expression-per-line": "off",
     "no-underscore-dangle": ["error", { "allow": ["_resize"] }],
-    "import/no-extraneous-dependencies": "off"
+    "import/no-extraneous-dependencies": "off",
+    "react/destructuring-assignment": "off"
   }
 }
