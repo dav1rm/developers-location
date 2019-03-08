@@ -33,11 +33,11 @@ export default class Map extends Component {
     });
   };
 
-  handleMapClick(e) {
+  handleMapClick = (e) => {
     const [latitude, longitude] = e.lngLat;
 
     alert(`Latitude: ${latitude} \nLongitude: ${longitude}`);
-  }
+  };
 
   render() {
     return (
@@ -45,7 +45,7 @@ export default class Map extends Component {
         {...this.state.viewport}
         onClick={this.handleMapClick}
         mapStyle="mapbox://styles/mapbox/basic-v9"
-        mapboxApiAccessToken="pk.eyJ1IjoiZGllZ28zZyIsImEiOiJjamh0aHc4em0wZHdvM2tyc3hqbzNvanhrIn0.3HWnXHy_RCi35opzKo8sHQ"
+        mapboxApiAccessToken="pk.eyJ1IjoiZGF2aXI4IiwiYSI6ImNqdDBmaGcxbDAzMWIzeW1qNHl2cnliangifQ.qtAwkmj4MrUhT75pX7IruA"
         onViewportChange={viewport => this.setState({ viewport })}
       >
         <Marker
@@ -61,6 +61,7 @@ export default class Map extends Component {
               height: 48,
             }}
             src="https://avatars2.githubusercontent.com/u/2254731?v=4"
+            alt="avatar"
           />
         </Marker>
       </MapGL>
