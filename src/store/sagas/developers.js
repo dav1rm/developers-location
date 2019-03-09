@@ -12,8 +12,8 @@ export function* addDeveloper(action) {
     const isDuplicated = yield select(state => state.developers.data.find(developer => developer.id === data.id));
 
     if (isDuplicated) {
-      yield put(DeveloperActions.addDeveloperFailure('Desenvolvedor já adicionado'));
-      toast.warn('Usuário Duplicado!', {
+      yield put(DeveloperActions.addDeveloperFailure('Desenvolvedor já cadastrado'));
+      toast.warn('Desenvolvedor já cadastrado', {
         position: toast.POSITION.TOP_RIGHT,
       });
     } else {
@@ -32,8 +32,8 @@ export function* addDeveloper(action) {
       });
     }
   } catch (err) {
-    yield put(DeveloperActions.addDeveloperFailure('Error ao adicionar desenvolvedor'));
-    toast.error('Erro ao adicionar Usuário!', {
+    yield put(DeveloperActions.addDeveloperFailure('Erro ao adicionar desenvolvedor!'));
+    toast.error('Erro ao adicionar desenvolvedor!', {
       position: toast.POSITION.TOP_RIGHT,
     });
   } finally {

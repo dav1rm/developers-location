@@ -67,10 +67,17 @@ export const Container = styled.div`
           &.success {
             margin-left: 15px;
             background: #85c47c;
+
+            &:hover {
+              background: #7ab572;
+            }
           }
 
           &.default {
             background: #d2d2d2;
+            &:hover {
+              background: #bfbebe;
+            }
           }
         }
       }
