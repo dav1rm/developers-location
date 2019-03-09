@@ -44,7 +44,8 @@ export const Container = styled.div`
     align-items: center;
     justify-content: flex-end;
 
-    button {
+    button,
+    a {
       border: none;
       padding: 5px;
       font-size: 20px;

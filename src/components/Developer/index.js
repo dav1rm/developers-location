@@ -21,9 +21,9 @@ const Developer = (props) => {
         <button type="submit" onClick={() => props.removeDeveloper(developer.id)}>
           <i className="fa fa-times-circle" />
         </button>
-        <button type="submit" onClick={() => alert('ver mais')}>
+        <a href={developer.url} target="_blank" rel="noopener noreferrer">
           <i className="fa fa-angle-right" />
-        </button>
+        </a>
       </div>
     </Container>
   );
