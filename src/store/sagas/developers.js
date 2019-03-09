@@ -5,7 +5,6 @@ import { Creators as DeveloperActions } from '../ducks/developers';
 
 export function* addDeveloper(action) {
   try {
-    console.tron.log(action.payload);
     const { data } = yield call(api.get, `/users/${action.payload.data.username}`);
 
     const isDuplicated = yield select(state => state.developers.data.find(developer => developer.id === data.id));
@@ -19,6 +18,7 @@ export function* addDeveloper(action) {
         username: data.login,
         avatar: data.avatar_url,
         url: data.html_url,
+        cordinates: action.payload.data.cordinates,
       };
 
       yield put(DeveloperActions.addDeveloperSuccess(developerData));

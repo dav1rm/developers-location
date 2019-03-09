@@ -5,15 +5,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Container } from './styles';
 import { Creators as ModalActions } from '../../store/ducks/modal';
+import { Creators as DevelopersActions } from '../../store/ducks/developers';
 
 class Modal extends Component {
   static propTypes = {
+    addDeveloperRequest: PropTypes.func.isRequired,
     closeModal: PropTypes.func.isRequired,
     modal: PropTypes.shape({
       modalIsOpen: PropTypes.bool.isRequired,
-      username: PropTypes.string.isRequired,
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired,
+      cordinates: PropTypes.shape({
+        latitude: PropTypes.number.isRequired,
+        longitude: PropTypes.number.isRequired,
+      }),
     }).isRequired,
   };
 
@@ -21,17 +24,19 @@ class Modal extends Component {
     username: '',
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { latitude, longitude, username } = this.state;
+    const { cordinates } = this.props.modal;
+    const { username } = this.state;
 
-    this.props.addDeveloperRequest({ latitude, longitude, username });
-    this.setState({ username: '' });
+    await this.props.addDeveloperRequest({ cordinates, username });
+    this.handleClose();
   };
 
   handleClose = () => {
     this.props.closeModal();
+    this.setState({ username: '' });
   };
 
   render() {
@@ -63,9 +68,10 @@ class Modal extends Component {
 }
 const mapStateToProps = state => ({
   modal: state.modal,
+  developers: state.developers,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(ModalActions, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ ...ModalActions, ...DevelopersActions }, dispatch);
 
 export default connect(
   mapStateToProps,

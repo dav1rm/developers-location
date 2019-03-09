@@ -11,8 +11,7 @@ export const Types = {
  */
 
 const INITIAL_STATE = {
-  latitude: '',
-  longitude: '',
+  cordinates: null,
   username: '',
   modalIsOpen: false,
 };
@@ -23,14 +22,12 @@ export default function modal(state = INITIAL_STATE, action) {
       return {
         ...state,
         modalIsOpen: true,
-        latitude: action.payload.coordenadas.latitude,
-        longitude: action.payload.coordenadas.longitude,
+        cordinates: action.payload.cordinates,
       };
     case Types.CLOSE:
       return {
         ...state,
-        longitude: '',
-        latitude: '',
+        cordinates: null,
         username: '',
         modalIsOpen: false,
       };
@@ -43,9 +40,9 @@ export default function modal(state = INITIAL_STATE, action) {
  * Actions
  */
 export const Creators = {
-  openModal: coordenadas => ({
+  openModal: cordinates => ({
     type: Types.OPEN,
-    payload: { coordenadas },
+    payload: { cordinates },
   }),
 
   closeModal: () => ({

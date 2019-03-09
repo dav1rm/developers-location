@@ -5,7 +5,7 @@ import MapGL, { Marker } from 'react-map-gl';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Creators as DeveloperActions } from '../store/ducks/developers';
+// import { Creators as DeveloperActions } from '../store/ducks/developers';
 import { Creators as ModalActions } from '../store/ducks/modal';
 import Modal from '../components/Modal';
 import DeveloperList from '../components/DeveloperList';
@@ -14,7 +14,6 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 class Main extends Component {
   static propTypes = {
-    addDeveloperRequest: PropTypes.func.isRequired,
     developers: PropTypes.shape({
       loading: PropTypes.bool.isRequired,
       modalIsOpen: PropTypes.bool.isRequired,
@@ -28,12 +27,6 @@ class Main extends Component {
         }),
       ),
       // error: PropTypes.oneOfType([null, PropTypes.string]),
-    }).isRequired,
-    openModal: PropTypes.func.isRequired,
-    modal: PropTypes.shape({
-      modalIsOpen: PropTypes.bool,
-      latitude: PropTypes.number,
-      longitude: PropTypes.number,
     }).isRequired,
   };
 
@@ -66,13 +59,10 @@ class Main extends Component {
     });
   };
 
-  handleMapClick = (e) => {
+  handleMapClick = async (e) => {
     const [longitude, latitude] = e.lngLat;
 
-    console.tron.log(this.props.openModal());
-
-    this.props.openModal({ latitude, longitude });
-    // console.tron.log(`Latitude: ${latitude} \nLongitude: ${longitude}`);
+    await this.props.openModal({ latitude, longitude });
   };
 
   render() {
@@ -90,8 +80,8 @@ class Main extends Component {
           {this.props.developers.data.map(developer => (
             <Marker
               key={developer.id}
-              latitude={developer.latitude}
-              longitude={developer.longitude}
+              latitude={developer.cordinates.latitude}
+              longitude={developer.cordinates.longitude}
             >
               <img
                 style={{
@@ -112,10 +102,9 @@ class Main extends Component {
 
 const mapStateToProps = state => ({
   developers: state.developers,
-  modal: state.modal,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ DeveloperActions, ModalActions }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(ModalActions, dispatch);
 
 export default connect(
   mapStateToProps,

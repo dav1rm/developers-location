@@ -5,10 +5,10 @@ import { Container } from './styles';
 const Developer = ({ developer }) => (
   <Container>
     <div className="info-developer">
-      <img src={developer.avatar_url} alt={developer.login} />
+      <img src={developer.avatar} alt={developer.login} />
       <div>
         <strong>{developer.name}</strong>
-        <span>{developer.login}</span>
+        <span>{developer.username}</span>
       </div>
     </div>
     <div className="actions-developer">

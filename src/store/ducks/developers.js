@@ -20,12 +20,13 @@ const INITIAL_STATE = {
       avatar: 'https://avatars2.githubusercontent.com/u/2254731?v=4',
       html_url: 'https://github.com/diego3g',
       name: 'Diego Fernandes',
-      latitude: -23.5439948,
-      longitude: -46.6065452,
+      cordinates: {
+        latitude: -23.5439948,
+        longitude: -46.6065452,
+      },
     },
   ],
-  latitude: '',
-  longitude: '',
+  cordinates: null,
   username: '',
   error: null,
   modalIsOpen: false,
@@ -36,8 +37,7 @@ export default function developers(state = INITIAL_STATE, action) {
     case Types.ADD_REQUEST:
       return {
         ...state,
-        latitude: action.payload.data.latitude,
-        longitude: action.payload.data.longitude,
+        cordinates: action.payload.data.cordinates,
         loading: true,
         modalIsOpen: false,
       };
@@ -49,7 +49,7 @@ export default function developers(state = INITIAL_STATE, action) {
         modalIsOpen: false,
         data: [
           ...state.data,
-          { ...action.payload.data, latitude: state.latitude, longitude: state.longitude },
+          { ...action.payload.data, cordinates: action.payload.data.cordinates },
         ],
       };
     case Types.ADD_FAILURE:
