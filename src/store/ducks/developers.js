@@ -5,6 +5,7 @@ export const Types = {
   ADD_REQUEST: 'developers/ADD_REQUEST',
   ADD_SUCCESS: 'developers/ADD_SUCCESS',
   ADD_FAILURE: 'developers/ADD_FAILURE',
+  REMOVE: 'developers/REMOVE',
 };
 
 /**
@@ -33,6 +34,7 @@ const INITIAL_STATE = {
 };
 
 export default function developers(state = INITIAL_STATE, action) {
+  console.tron.log(action.payload);
   switch (action.type) {
     case Types.ADD_REQUEST:
       return {
@@ -51,6 +53,11 @@ export default function developers(state = INITIAL_STATE, action) {
           ...state.data,
           { ...action.payload.data, cordinates: action.payload.data.cordinates },
         ],
+      };
+    case Types.REMOVE:
+      return {
+        ...state,
+        data: state.data.filter(dev => dev.id !== action.payload.id),
       };
     case Types.ADD_FAILURE:
       return { ...state, loading: false, error: action.payload.error };
@@ -76,5 +83,9 @@ export const Creators = {
   addDeveloperFailure: error => ({
     type: Types.ADD_FAILURE,
     payload: { error },
+  }),
+  removeDeveloper: id => ({
+    type: Types.REMOVE,
+    payload: { id },
   }),
 };

@@ -1,25 +1,36 @@
 import React from 'react';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as DevelopersActions } from '../../store/ducks/developers';
+
 import { Container } from './styles';
 
-const Developer = ({ developer }) => (
-  <Container>
-    <div className="info-developer">
-      <img src={developer.avatar} alt={developer.login} />
-      <div>
-        <strong>{developer.name}</strong>
-        <span>{developer.username}</span>
+const Developer = (props) => {
+  const { developer } = props;
+  return (
+    <Container>
+      <div className="info-developer">
+        <img src={developer.avatar} alt={developer.login} />
+        <div>
+          <strong>{developer.name}</strong>
+          <span>{developer.username}</span>
+        </div>
       </div>
-    </div>
-    <div className="actions-developer">
-      <button type="submit" onClick={() => alert('excluir')}>
-        <i className="fa fa-times-circle" />
-      </button>
-      <button type="submit" onClick={() => alert('ver mais')}>
-        <i className="fa fa-angle-right" />
-      </button>
-    </div>
-  </Container>
-);
+      <div className="actions-developer">
+        <button type="submit" onClick={() => props.removeDeveloper(developer.id)}>
+          <i className="fa fa-times-circle" />
+        </button>
+        <button type="submit" onClick={() => alert('ver mais')}>
+          <i className="fa fa-angle-right" />
+        </button>
+      </div>
+    </Container>
+  );
+};
+const mapDispatchToProps = dispatch => bindActionCreators(DevelopersActions, dispatch);
 
-export default Developer;
+export default connect(
+  null,
+  mapDispatchToProps,
+)(Developer);
