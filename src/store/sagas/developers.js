@@ -27,13 +27,13 @@ export function* addDeveloper(action) {
       };
 
       yield put(DeveloperActions.addDeveloperSuccess(developerData));
-      toast.success('Desenvolvedor Adicionado com Sucesso', {
+      toast.success('Desenvolvedor dicionado com sucesso!', {
         position: toast.POSITION.TOP_RIGHT,
       });
     }
   } catch (err) {
-    yield put(DeveloperActions.addDeveloperFailure('Erro ao adicionar desenvolvedor!'));
-    toast.error('Erro ao adicionar desenvolvedor!', {
+    yield put(DeveloperActions.addDeveloperFailure('Erro ao adicionar desenvolvedor'));
+    toast.error('Erro ao adicionar desenvolvedor', {
       position: toast.POSITION.TOP_RIGHT,
     });
   } finally {
