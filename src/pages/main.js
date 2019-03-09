@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-
 import MapGL, { Marker } from 'react-map-gl';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -68,7 +69,8 @@ class Main extends Component {
   render() {
     return (
       <Fragment>
-        <Modal>{!!this.props.developers.error && <span>{this.props.developers.error}</span>}</Modal>
+        <ToastContainer />
+        <Modal />
         <DeveloperList />
         <MapGL
           {...this.state.viewport}

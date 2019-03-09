@@ -18,6 +18,9 @@ class Modal extends Component {
         longitude: PropTypes.number.isRequired,
       }),
     }).isRequired,
+    developers: PropTypes.shape({
+      loading: PropTypes.bool.isRequired,
+    }).isRequired,
   };
 
   state = {
@@ -28,10 +31,15 @@ class Modal extends Component {
     e.preventDefault();
 
     const { cordinates } = this.props.modal;
+
     const { username } = this.state;
+    if (!username) return;
+
+    const { loading } = this.props.developers;
+    if (loading) return;
 
     await this.props.addDeveloperRequest({ cordinates, username });
-    this.handleClose();
+    this.setState({ username: '' });
   };
 
   handleClose = () => {
@@ -43,7 +51,6 @@ class Modal extends Component {
     return (
       <Container show={this.props.modal.modalIsOpen}>
         <section className="modal-main">
-          {this.props.children}
           <b>Adicionar novo usuário</b>
           <form onSubmit={this.handleSubmit} method="post">
             <input
@@ -57,7 +64,11 @@ class Modal extends Component {
                 Cancelar
               </button>
               <button className="success" type="submit">
-                Salvar
+                {this.props.developers.loading ? (
+                  <i className="fa fa-spinner fa-pulse" />
+                ) : (
+                  'Salvar'
+                )}
               </button>
             </div>
           </form>

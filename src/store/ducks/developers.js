@@ -14,53 +14,30 @@ export const Types = {
 
 const INITIAL_STATE = {
   loading: false,
-  data: [
-    {
-      username: 'diego3g',
-      id: 2254731,
-      avatar: 'https://avatars2.githubusercontent.com/u/2254731?v=4',
-      html_url: 'https://github.com/diego3g',
-      name: 'Diego Fernandes',
-      cordinates: {
-        latitude: -23.5439948,
-        longitude: -46.6065452,
-      },
-    },
-  ],
-  cordinates: null,
-  username: '',
+  data: [],
   error: null,
-  modalIsOpen: false,
 };
 
 export default function developers(state = INITIAL_STATE, action) {
-  console.tron.log(action.payload);
   switch (action.type) {
     case Types.ADD_REQUEST:
       return {
         ...state,
-        cordinates: action.payload.data.cordinates,
         loading: true,
-        modalIsOpen: false,
       };
     case Types.ADD_SUCCESS:
       return {
-        ...state,
         loading: false,
         error: null,
-        modalIsOpen: false,
-        data: [
-          ...state.data,
-          { ...action.payload.data, cordinates: action.payload.data.cordinates },
-        ],
+        data: [...state.data, { ...action.payload.data }],
       };
+    case Types.ADD_FAILURE:
+      return { ...state, loading: false, error: action.payload.error };
     case Types.REMOVE:
       return {
         ...state,
         data: state.data.filter(dev => dev.id !== action.payload.id),
       };
-    case Types.ADD_FAILURE:
-      return { ...state, loading: false, error: action.payload.error };
     default:
       return state;
   }
