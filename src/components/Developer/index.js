@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as DevelopersActions } from '../../store/ducks/developers';
@@ -28,6 +28,18 @@ const Developer = (props) => {
     </Container>
   );
 };
+
+Developer.propTypes = {
+  removeDeveloper: PropTypes.func.isRequired,
+  developer: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    username: PropTypes.string,
+    avatar: PropTypes.string,
+    url: PropTypes.string,
+  }).isRequired,
+};
+
 const mapDispatchToProps = dispatch => bindActionCreators(DevelopersActions, dispatch);
 
 export default connect(

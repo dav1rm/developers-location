@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import Developer from '../Developer/index';
@@ -12,6 +12,25 @@ const DeveloperList = ({ developers }) => (
     ))}
   </Container>
 );
+
+DeveloperList.propTypes = {
+  developers: PropTypes.shape({
+    data: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        username: PropTypes.string,
+        avatar: PropTypes.string,
+        url: PropTypes.string,
+        cordinates: PropTypes.shape({
+          latitude: PropTypes.number,
+          longitude: PropTypes.number,
+        }),
+      }),
+    ),
+  }).isRequired,
+};
+
 const mapStateToProps = state => ({
   developers: state.developers,
 });
