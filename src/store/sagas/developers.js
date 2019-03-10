@@ -27,7 +27,7 @@ export function* addDeveloper(action) {
       };
 
       yield put(DeveloperActions.addDeveloperSuccess(developerData));
-      toast.success('Desenvolvedor dicionado com sucesso!', {
+      toast.success('Desenvolvedor adicionado com sucesso!', {
         position: toast.POSITION.TOP_RIGHT,
       });
     }
